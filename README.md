@@ -1,65 +1,91 @@
-# Starter Template with React Navigation
+# Field Manager — React Native Field Service App
 
-This is a minimal starter template for React Native apps using Expo and React Navigation.
+A React Native field service management app built as a tutorial template for [MockMyData.io](https://mockmydata.io). Demonstrates real-world mobile development against a live mock REST API — authentication flow, data fetching, CRUD operations, photo capture with JSONField storage, and offline-friendly patterns.
 
-It includes the following:
-
-- Example [Native Stack](https://reactnavigation.org/docs/native-stack-navigator) with a nested [Bottom Tab](https://reactnavigation.org/docs/bottom-tab-navigator)
-- Web support with [React Native for Web](https://necolas.github.io/react-native-web/)
-- TypeScript support and configured for React Navigation
-- Automatic [deep link](https://reactnavigation.org/docs/deep-linking) and [URL handling configuration](https://reactnavigation.org/docs/configuring-links)
-- Theme support [based on system appearance](https://reactnavigation.org/docs/themes/#using-the-operating-system-preferences)
-- Expo [Development Build](https://docs.expo.dev/develop/development-builds/introduction/) with [Continuous Native Generation](https://docs.expo.dev/workflow/continuous-native-generation/)
-
-## Getting Started
-
-1. Create a new project using this template:
-
-   ```sh
-   npx create-expo-app@latest --template react-navigation/template
-   ```
-
-2. Edit the `app.json` file to configure the `name`, `slug`, `scheme` and bundle identifiers (`ios.bundleIdentifier` and `android.bundleIdentifier`) for your app.
-
-3. Edit the `src/App.tsx` file to start working on your app.
-
-## Running the app
-
-- Install the dependencies:
-
-  ```sh
-  npm install
-  ```
-
-- Start the development server:
-
-  ```sh
-  npm start
-  ```
-
-- Build and run iOS and Android development builds:
-
-  ```sh
-  npm run ios
-  # or
-  npm run android
-  ```
-
-- In the terminal running the development server, press `i` to open the iOS simulator, `a` to open the Android device or emulator, or `w` to open the web browser.
-
-## Notes
-
-This project uses a [development build](https://docs.expo.dev/develop/development-builds/introduction/) and cannot be run with [Expo Go](https://expo.dev/go). To run the app with Expo Go, edit the `package.json` file, remove the `expo-dev-client` package and `--dev-client` flag from the `start` script.
-
-We highly recommend using the development builds for normal development and testing.
-
-The `ios` and `android` folder are gitignored in the project by default as they are automatically generated during the build process ([Continuous Native Generation](https://docs.expo.dev/workflow/continuous-native-generation/)). This means that you should not edit these folders directly and use [config plugins](https://docs.expo.dev/config-plugins/) instead. However, if you need to edit these folders, you can remove them from the `.gitignore` file so that they are tracked by git.
-
-## Resources
-
-- [React Navigation documentation](https://reactnavigation.org/)
-- [Expo documentation](https://docs.expo.dev/)
+Clone it, point it at your MockMyData workspace or your own backend, and start building.
 
 ---
 
-Demo assets are from [lucide.dev](https://lucide.dev/)
+## Quick Start
+
+### 1. Clone the repo
+
+```bash
+git clone https://github.com/mockmydata/field-service-app.git
+cd field-service-app
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Configure your environment
+
+Copy the example env file:
+
+```bash
+cp .env.example .env
+```
+
+Open `.env` and update the values:
+
+```env
+# Your API base URL — no trailing slash
+# For local development with ngrok:
+EXPO_PUBLIC_API_BASE_URL=https://your-ngrok-url.ngrok-free.app
+
+# For your own backend in production:
+# EXPO_PUBLIC_API_BASE_URL=https://api.yourdomain.com
+
+# MockMyData API key (optional — only needed if using MockMyData)
+# EXPO_PUBLIC_API_KEY=sk_your_api_key_here
+
+# Set to true to use MockMyData endpoints
+# EXPO_PUBLIC_USE_MOCK_DATA=false
+```
+
+### 4. Start the app
+
+```bash
+npx expo start
+```
+
+Scan the QR code with Expo Go on your device or press `i` for iOS simulator / `a` for Android emulator.
+
+---
+
+## Using MockMyData for Mock Data
+
+Want to develop your frontend without a running backend? Point the app at a [MockMyData.io](https://mockmydata.io) workspace instead.
+
+1. Create a free account at [mockmydata.io](https://mockmydata.io)
+2. Create a project and set up your endpoints to match the expected schema
+3. Copy your subdomain and API key from the dashboard
+4. Update your `.env`:
+
+```env
+EXPO_PUBLIC_API_BASE_URL=https://your-tenant.api.mockmydata.io
+EXPO_PUBLIC_API_KEY=sk_your_api_key_here
+EXPO_PUBLIC_USE_MOCK_DATA=true
+```
+
+The app sends `X-API-Key` in request headers automatically when `EXPO_PUBLIC_API_KEY` is set.
+
+> When you're ready to switch to your real backend, update `EXPO_PUBLIC_API_BASE_URL` to your production URL, remove the API key, and set `EXPO_PUBLIC_USE_MOCK_DATA=false`.
+
+---
+
+## What's Included
+
+- Authentication flow — login, register, JWT token handling
+- Job management — create, view, update, and delete field service jobs
+- Customer management — full CRUD with contact details
+- Job types — categorize jobs with icons and colors
+- Photo capture — multiple photos per job stored as a JSON array of URLs (upload to S3, Cloudinary, or any storage provider and save the returned URL)
+- User profiles — technician details, ratings, and availability
+
+---
+
+## Project Structure
