@@ -60,7 +60,7 @@ Scan the QR code with Expo Go on your device or press `i` for iOS simulator / `a
 
 Want to develop your frontend without a running backend? Point the app at a [MockMyData.io](https://mockmydata.io) workspace instead.
 
-1. Create a free account at [mockmydata.io](https://mockmydata.io)
+1. Use our Template page, you can sign Up and import the endpoints in a free account at [mockmydata.io](https://mockmydata.io/field-service-app)
 2. Create a project and set up your endpoints to match the expected schema
 3. Copy your subdomain and API key from the dashboard
 4. Update your `.env`:
