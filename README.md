@@ -1,4 +1,4 @@
-# Field Manager — React Native Field Service App
+# Field Manager — React Native Field Service App (Version 1)
 
 A React Native field service management app built as a tutorial template for [MockMyData.io](https://mockmydata.io). Demonstrates real-world mobile development against a live mock REST API — authentication flow, data fetching, CRUD operations, photo capture with JSONField storage, and offline-friendly patterns.
 
