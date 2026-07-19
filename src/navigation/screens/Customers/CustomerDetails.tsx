@@ -13,11 +13,11 @@ import { Appbar } from 'react-native-paper';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { getTypeCfg } from './CustomersScreen';
+import { getCustomerTypeStyle } from './CustomersScreen';
 import { Job } from '../../../types/types';
 import { useCustomerContext } from '../../../shared/context/CustomerContext';
 import { useJobContext } from '../../../shared/context/JobContext';
-import { STATUS_CFG } from '../../../shared/JobConfig';
+import { JOB_STATUS_STYLES } from '../../../shared/JobConfig';
 import { T } from '../../../shared/Theme';
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -64,17 +64,17 @@ function SectionCard({ title, children }: { title: string; children: React.React
 
 // ─── Related Job Row ──────────────────────────────────────────────────────────
 function JobRow({ job, onPress }: { job: Job; onPress: () => void }) {
-  const cfg = STATUS_CFG[job.status];
+  const statusStyle = JOB_STATUS_STYLES[job.status];
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={0.8} style={jr.row}>
-      <View style={[jr.dot, { backgroundColor: cfg.color }]} />
+      <View style={[jr.dot, { backgroundColor: statusStyle.color }]} />
       <View style={jr.body}>
         <Text style={jr.title}>{job.title}</Text>
         <Text style={jr.meta}>{job.date}  ·  {job.time ?? '—'}</Text>
       </View>
-      <View style={[jr.badge, { backgroundColor: cfg.bg }]}>
-        <MaterialCommunityIcons name={cfg.icon as any} size={11} color={cfg.color} />
-        <Text style={[jr.badgeText, { color: cfg.color }]}>{job.status}</Text>
+      <View style={[jr.badge, { backgroundColor: statusStyle.bg }]}>
+        <MaterialCommunityIcons name={statusStyle.icon as any} size={11} color={statusStyle.color} />
+        <Text style={[jr.badgeText, { color: statusStyle.color }]}>{job.status}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -112,7 +112,7 @@ export default function CustomerDetailScreen() {
     );
   };
 
-  const cfg      = getTypeCfg(customer.type);
+  const typeStyle = getCustomerTypeStyle(customer.type);
   const initials = customer.name.split(' ').slice(0, 2).map(w => w[0]).join('');
 
   return (
@@ -129,36 +129,36 @@ export default function CustomerDetailScreen() {
         contentContainerStyle={[sc.scroll, { paddingBottom: Math.max(insets.bottom, 24) }]}
       >
         {/* ── Hero card ── */}
-        <View style={[hero.card, { borderTopColor: cfg.color }]}>
-          <View style={[hero.avatar, { backgroundColor: cfg.color + '18' }]}>
-            <Text style={[hero.avatarText, { color: cfg.color }]}>{initials}</Text>
+        <View style={[hero.card, { borderTopColor: typeStyle.color }]}>
+          <View style={[hero.avatar, { backgroundColor: typeStyle.color + '18' }]}>
+            <Text style={[hero.avatarText, { color: typeStyle.color }]}>{initials}</Text>
           </View>
           <Text style={hero.name}>{customer.name}</Text>
-          <View style={[hero.typeBadge, { backgroundColor: cfg.bg, borderColor: cfg.color + '40' }]}>
-            <Text style={[hero.typeBadgeText, { color: cfg.color }]}>{cfg.icon}  {customer.type}</Text>
+          <View style={[hero.typeBadge, { backgroundColor: typeStyle.bg, borderColor: typeStyle.color + '40' }]}>
+            <Text style={[hero.typeBadgeText, { color: typeStyle.color }]}>{typeStyle.icon}  {customer.type}</Text>
           </View>
 
           <View style={hero.actions}>
             <TouchableOpacity
-              style={[hero.actionBtn, { backgroundColor: cfg.color + '12', borderColor: cfg.color + '30' }]}
+              style={[hero.actionBtn, { backgroundColor: typeStyle.color + '12', borderColor: typeStyle.color + '30' }]}
               onPress={() => Linking.openURL(`tel:${customer.phone}`)}
             >
-              <MaterialCommunityIcons name="phone-outline" size={18} color={cfg.color} />
-              <Text style={[hero.actionBtnText, { color: cfg.color }]}>Call</Text>
+              <MaterialCommunityIcons name="phone-outline" size={18} color={typeStyle.color} />
+              <Text style={[hero.actionBtnText, { color: typeStyle.color }]}>Call</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={[hero.actionBtn, { backgroundColor: cfg.color + '12', borderColor: cfg.color + '30' }]}
+              style={[hero.actionBtn, { backgroundColor: typeStyle.color + '12', borderColor: typeStyle.color + '30' }]}
               onPress={() => Linking.openURL(`mailto:${customer.email}`)}
             >
-              <MaterialCommunityIcons name="email-outline" size={18} color={cfg.color} />
-              <Text style={[hero.actionBtnText, { color: cfg.color }]}>Email</Text>
+              <MaterialCommunityIcons name="email-outline" size={18} color={typeStyle.color} />
+              <Text style={[hero.actionBtnText, { color: typeStyle.color }]}>Email</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={[hero.actionBtn, { backgroundColor: cfg.color + '12', borderColor: cfg.color + '30' }]}
+              style={[hero.actionBtn, { backgroundColor: typeStyle.color + '12', borderColor: typeStyle.color + '30' }]}
               onPress={() => openMap(customer.address)}
             >
-              <MaterialCommunityIcons name="map-marker-outline" size={18} color={cfg.color} />
-              <Text style={[hero.actionBtnText, { color: cfg.color }]}>Map</Text>
+              <MaterialCommunityIcons name="map-marker-outline" size={18} color={typeStyle.color} />
+              <Text style={[hero.actionBtnText, { color: typeStyle.color }]}>Map</Text>
             </TouchableOpacity>
           </View>
         </View>

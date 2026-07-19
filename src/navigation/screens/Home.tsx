@@ -42,7 +42,7 @@ export const T = {
   appbar: '#2D73DE',
 };
 
-export const STATUS_CFG: Record<string, { color: string; bg: string; icon: string; label: string }> = {
+export const STATUS_BADGE_STYLES: Record<string, { color: string; bg: string; icon: string; label: string }> = {
   'Scheduled':   { color: T.blue,    bg: '#EFF6FF', icon: '◷', label: 'Scheduled'   },
   'In Progress': { color: T.amber,   bg: '#FFFBEB', icon: '⚡', label: 'In Progress' },
   'Completed':   { color: T.green,   bg: '#F0FDF4', icon: '✓', label: 'Completed'   },
@@ -155,16 +155,16 @@ function StripCalendar({ jobs, selectedDate, onSelectDate }: {
 
 // ─── Job Card ─────────────────────────────────────────────────────────────────
 function JobCard({ job, onPress }: { job: Job; onPress: () => void }) {
-  const cfg     = STATUS_CFG[job.status] ?? STATUS_CFG['Scheduled'];
+  const statusStyle = STATUS_BADGE_STYLES[job.status] ?? STATUS_BADGE_STYLES['Scheduled'];
   const endTime = calcEndTime(job.time, job.duration);
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={0.82} style={jc.container}>
-      <View style={[jc.accent, { backgroundColor: cfg.color }]} />
+      <View style={[jc.accent, { backgroundColor: statusStyle.color }]} />
       <View style={jc.body}>
         <View style={jc.topRow}>
           <Text style={jc.title}>{job.title}</Text>
-          <View style={[jc.badge, { backgroundColor: cfg.bg }]}>
-            <Text style={[jc.badgeText, { color: cfg.color }]}>{cfg.icon}  {job.status}</Text>
+          <View style={[jc.badge, { backgroundColor: statusStyle.bg }]}>
+            <Text style={[jc.badgeText, { color: statusStyle.color }]}>{statusStyle.icon}  {job.status}</Text>
           </View>
         </View>
         <Text style={jc.meta}>📍 {job.location}</Text>

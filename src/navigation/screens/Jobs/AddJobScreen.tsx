@@ -16,9 +16,9 @@ import { Appbar, Button, TextInput as PaperInput } from 'react-native-paper';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
-import { T, ALL_STATUSES, STATUS_CFG } from '../Home';
+import { T, ALL_STATUSES, STATUS_BADGE_STYLES } from '../Home';
 import { useJobContext } from '../../../shared/context/JobContext';
-import { Status } from '../../../types/types';
+import { Status, Customer } from '../../../types/types';
 import { TimeWindowModal } from '../../../shared/components/TimeWindowModal';
 import { DatePickerModal } from '../../../shared/components/DatePickerModal';
 import { CustomerPickerModal } from '../../../shared/components/CustomerPickerModal';
@@ -81,6 +81,7 @@ export default function AddJobScreen() {
     try {
       await addJob({
         title:        title.trim(),
+        customerId:   selectedCustomer.id,
         location:     selectedCustomer.address,
         customerName: selectedCustomer.name,
         time:         timeString,
@@ -114,12 +115,12 @@ export default function AddJobScreen() {
             <Text style={s.sectionLabel}>Status</Text>
             <View style={s.chipRow}>
               {ALL_STATUSES.map(st => {
-                const cfg = STATUS_CFG[st]; const isActive = status === st;
+                const statusStyle = STATUS_BADGE_STYLES[st]; const isActive = status === st;
                 return (
                   <TouchableOpacity key={st} onPress={() => setStatus(st)}
-                    style={[s.chip, isActive && { backgroundColor: cfg.color, borderColor: cfg.color }]}>
+                    style={[s.chip, isActive && { backgroundColor: statusStyle.color, borderColor: statusStyle.color }]}>
 
-                    <Text style={[s.chipText, isActive && { color: '#fff' }]}>{cfg.icon}  {st}</Text>
+                    <Text style={[s.chipText, isActive && { color: '#fff' }]}>{statusStyle.icon}  {st}</Text>
                   </TouchableOpacity>
                 );
               })}

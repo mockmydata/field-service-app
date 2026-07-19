@@ -13,7 +13,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAuth } from '../../../shared/context/AuthContext'; // adjust path
 import { T } from '../Home'; // adjust path
 
-const ROLE_CFG = {
+const ROLE_DISPLAY = {
   manager:    { label: 'Manager',    color: T.accent,  bg: '#EFF6FF', icon: 'shield-account-outline' as const },
   technician: { label: 'Technician', color: T.green,   bg: '#F0FDF4', icon: 'hard-hat' as const },
 };
@@ -51,7 +51,7 @@ export default function ProfileScreen() {
 
   if (!user) return null;
 
-  const roleCfg = ROLE_CFG[user.role];
+  const roleDisplay = ROLE_DISPLAY[user.role];
 
   const handleLogout = () => {
     Alert.alert('Sign Out', 'Are you sure you want to sign out?', [
@@ -74,13 +74,13 @@ export default function ProfileScreen() {
 
         {/* ── Hero ── */}
         <View style={hero.card}>
-          <View style={[hero.avatar, { backgroundColor: roleCfg.color + '20' }]}>
-            <Text style={[hero.avatarText, { color: roleCfg.color }]}>{user.avatar_initials}</Text>
+          <View style={[hero.avatar, { backgroundColor: roleDisplay.color + '20' }]}>
+            <Text style={[hero.avatarText, { color: roleDisplay.color }]}>{user.avatar_initials}</Text>
           </View>
           <Text style={hero.name}>{user.name}</Text>
-          <View style={[hero.roleBadge, { backgroundColor: roleCfg.bg, borderColor: roleCfg.color + '40' }]}>
-            <MaterialCommunityIcons name={roleCfg.icon} size={14} color={roleCfg.color} />
-            <Text style={[hero.roleText, { color: roleCfg.color }]}>{roleCfg.label}</Text>
+          <View style={[hero.roleBadge, { backgroundColor: roleDisplay.bg, borderColor: roleDisplay.color + '40' }]}>
+            <MaterialCommunityIcons name={roleDisplay.icon} size={14} color={roleDisplay.color} />
+            <Text style={[hero.roleText, { color: roleDisplay.color }]}>{roleDisplay.label}</Text>
           </View>
         </View>
 
@@ -90,7 +90,7 @@ export default function ProfileScreen() {
           <Divider />
           <InfoRow icon="email-outline"   label="Email"     value={user.email} />
           <Divider />
-          <InfoRow icon="identifier"      label="Role"      value={roleCfg.label} />
+          <InfoRow icon="identifier"      label="Role"      value={roleDisplay.label} />
         </SectionCard>
 
         {/* ── Permissions ── */}
@@ -100,7 +100,7 @@ export default function ProfileScreen() {
               {i > 0 && <Divider />}
               <View style={pm.row}>
                 <View style={pm.check}>
-                  <MaterialCommunityIcons name="check" size={13} color={roleCfg.color} />
+                  <MaterialCommunityIcons name="check" size={13} color={roleDisplay.color} />
                 </View>
                 <Text style={pm.text}>{p}</Text>
               </View>

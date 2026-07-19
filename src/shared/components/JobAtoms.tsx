@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { T } from '../Theme';
-import { STATUS_CFG } from '../JobConfig';
+import { JOB_STATUS_STYLES } from '../JobConfig';
 
 // ── Card ──────────────────────────────────────────────────────────────────────
 export function Card({ children }: { children: React.ReactNode }) {
@@ -55,11 +55,11 @@ const il = StyleSheet.create({
 
 // ── StatusBadge ───────────────────────────────────────────────────────────────
 export function StatusBadge({ status }: { status: string }) {
-  const cfg = STATUS_CFG[status] ?? STATUS_CFG['Scheduled'];
+  const statusStyle = JOB_STATUS_STYLES[status] ?? JOB_STATUS_STYLES['Scheduled'];
   return (
-    <View style={[sb.wrap, { backgroundColor: cfg.bg }]}>
-      <MaterialCommunityIcons name={cfg.icon as any} size={12} color={cfg.color} />
-      <Text style={[sb.text, { color: cfg.color }]}>{cfg.label}</Text>
+    <View style={[sb.wrap, { backgroundColor: statusStyle.bg }]}>
+      <MaterialCommunityIcons name={statusStyle.icon as any} size={12} color={statusStyle.color} />
+      <Text style={[sb.text, { color: statusStyle.color }]}>{statusStyle.label}</Text>
     </View>
   );
 }

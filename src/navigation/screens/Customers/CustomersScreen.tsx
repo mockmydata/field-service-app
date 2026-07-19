@@ -31,33 +31,33 @@ export interface Customer {
 }
 
 // ─── Config ───────────────────────────────────────────────────────────────────
-export const TYPE_CFG: Record<string, { color: string; bg: string; icon: string }> = {
+export const CUSTOMER_TYPE_STYLES: Record<string, { color: string; bg: string; icon: string }> = {
   Commercial:  { color: T.blue,    bg: '#EFF6FF', icon: '🏢' },
   Residential: { color: T.green,   bg: '#F0FDF4', icon: '🏠' },
   Healthcare:  { color: '#9333EA', bg: '#FAF5FF', icon: '🏥' },
 };
 export const ALL_TYPES = ['Commercial', 'Residential', 'Healthcare'];
-export const getTypeCfg = (type: string) =>
-  TYPE_CFG[type] ?? { color: T.textSecondary, bg: T.surfaceAlt, icon: '📍' };
+export const getCustomerTypeStyle = (type: string) =>
+  CUSTOMER_TYPE_STYLES[type] ?? { color: T.textSecondary, bg: T.surfaceAlt, icon: '📍' };
 
 export type CustomerFormData = Omit<Customer, 'id' | 'active_jobs'>;
 
 // ─── Customer Card ────────────────────────────────────────────────────────────
 function CustomerCard({ customer, onPress }: { customer: Customer; onPress: () => void }) {
-  const cfg      = getTypeCfg(customer.type);
+  const typeStyle = getCustomerTypeStyle(customer.type);
   const initials = customer.name.split(' ').slice(0, 2).map((w) => w[0]).join('');
 
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={0.82} style={cc.container}>
-      <View style={[cc.accentBar, { backgroundColor: cfg.color }]} />
-      <View style={[cc.avatar, { backgroundColor: cfg.color + '1A' }]}>
-        <Text style={[cc.avatarText, { color: cfg.color }]}>{initials}</Text>
+      <View style={[cc.accentBar, { backgroundColor: typeStyle.color }]} />
+      <View style={[cc.avatar, { backgroundColor: typeStyle.color + '1A' }]}>
+        <Text style={[cc.avatarText, { color: typeStyle.color }]}>{initials}</Text>
       </View>
       <View style={cc.body}>
         <View style={cc.topRow}>
           <Text style={cc.name} numberOfLines={1}>{customer.name}</Text>
-          <View style={[cc.typeBadge, { backgroundColor: cfg.bg }]}>
-            <Text style={[cc.typeBadgeText, { color: cfg.color }]}>{cfg.icon}  {customer.type}</Text>
+          <View style={[cc.typeBadge, { backgroundColor: typeStyle.bg }]}>
+            <Text style={[cc.typeBadgeText, { color: typeStyle.color }]}>{typeStyle.icon}  {customer.type}</Text>
           </View>
         </View>
         <Text style={cc.contact}>👤 {customer.contact}</Text>
@@ -193,14 +193,14 @@ export default function CustomersScreen() {
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={sc.filterRow}>
           {FILTERS.map((f) => {
             const isActive = f === activeFilter;
-            const cfg      = f === 'All' ? null : getTypeCfg(f);
+            const typeStyle = f === 'All' ? null : getCustomerTypeStyle(f);
             return (
               <TouchableOpacity
                 key={f}
                 onPress={() => setActiveFilter(f)}
-                style={[sc.filterChip, isActive && { backgroundColor: cfg ? cfg.color : T.accent, borderColor: cfg ? cfg.color : T.accent }]}
+                style={[sc.filterChip, isActive && { backgroundColor: typeStyle ? typeStyle.color : T.accent, borderColor: typeStyle ? typeStyle.color : T.accent }]}
               >
-                {cfg && <Text style={sc.filterIcon}>{cfg.icon}</Text>}
+                {typeStyle && <Text style={sc.filterIcon}>{typeStyle.icon}</Text>}
                 <Text style={[sc.filterText, isActive && sc.filterTextActive]}>{f}</Text>
               </TouchableOpacity>
             );

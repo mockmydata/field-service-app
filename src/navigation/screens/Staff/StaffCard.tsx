@@ -2,23 +2,23 @@ import React from 'react';
 import { Linking, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { T } from '../Home';
-import { Technician, getRoleCfg } from './Staff.constants';
+import { Technician, getRoleStyle } from './Staff.constants';
 
 export function StaffCard({ tech, onPress }: { tech: Technician; onPress: () => void }) {
-  const cfg      = getRoleCfg(tech.role);
+  const roleStyle = getRoleStyle(tech.role);
   const initials = tech.name.split(' ').slice(0, 2).map(w => w[0]).join('');
 
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={0.82} style={stc.container}>
-      <View style={[stc.accentBar, { backgroundColor: cfg.color }]} />
-      <View style={[stc.avatar, { backgroundColor: cfg.color + '1A' }]}>
-        <Text style={[stc.avatarText, { color: cfg.color }]}>{initials}</Text>
+      <View style={[stc.accentBar, { backgroundColor: roleStyle.color }]} />
+      <View style={[stc.avatar, { backgroundColor: roleStyle.color + '1A' }]}>
+        <Text style={[stc.avatarText, { color: roleStyle.color }]}>{initials}</Text>
       </View>
       <View style={stc.body}>
         <View style={stc.topRow}>
           <Text style={stc.name} numberOfLines={1}>{tech.name}</Text>
-          <View style={[stc.roleBadge, { backgroundColor: cfg.bg }]}>
-            <Text style={[stc.roleBadgeText, { color: cfg.color }]}>{tech.role}</Text>
+          <View style={[stc.roleBadge, { backgroundColor: roleStyle.bg }]}>
+            <Text style={[stc.roleBadgeText, { color: roleStyle.color }]}>{tech.role}</Text>
           </View>
         </View>
         <View style={stc.statsRow}>

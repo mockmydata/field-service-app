@@ -21,6 +21,7 @@ export type Job = {
   longitude?:   number;
   priority?:    string;
   type?:        string;
+  jobType?:     string;
 };
 
 export interface Customer {

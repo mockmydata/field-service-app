@@ -1,7 +1,7 @@
 import { T } from './Theme';
 import { Status } from '../types/types';
 
-export const STATUS_CFG: Record<string, { color: string; bg: string; icon: string; label: string }> = {
+export const JOB_STATUS_STYLES: Record<string, { color: string; bg: string; icon: string; label: string }> = {
   'Scheduled':   { color: T.accent,  bg: '#EFF6FF', icon: 'clock-outline',       label: 'Scheduled'   },
   'Enroute':     { color: T.purple,  bg: '#F5F3FF', icon: 'car-outline',          label: 'Enroute'     },
   'Arrived':     { color: T.amber,   bg: '#FFFBEB', icon: 'map-marker-check',     label: 'Arrived'     },

@@ -13,7 +13,7 @@ type JobContextType = {
   fetchJobs: () => Promise<void>;
   addJob: (job: Omit<Job, 'id'>) => Promise<void>;
   updateJob: (job: Job) => Promise<Job>;
-  deleteJob: (id: string) => Promise<void>;
+  deleteJob: (id: number) => Promise<void>;
 };
 
 const JobContext = createContext<JobContextType | null>(null);
@@ -57,7 +57,7 @@ export function JobProvider({ children }: { children: React.ReactNode }) {
     return saved;
   };
 
-  const deleteJob = async (id: string) => {
+  const deleteJob = async (id: number) => {
     await JobsAPI.delete(id);
     setJobs(prev => prev.filter(j => j.id !== id));
     setSelectedJob(null);

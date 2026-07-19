@@ -30,7 +30,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { Job, Status } from '../../../types/types';
 import { useJobContext } from '../../../shared/context/JobContext';
 import { useStaffContext } from '../../../shared/context/StaffContext';
-import { STATUS_CFG } from '../../../shared/JobConfig';
+import { JOB_STATUS_STYLES } from '../../../shared/JobConfig';
 import { T } from '../../../shared/Theme';
 import { formatTimeRange } from '../../../shared/TimeHelpers';
 import { Avatar, Card, CardLabel, Chip, InfoLine, StatusBadge } from '../../../shared/components/JobAtoms';
@@ -107,7 +107,7 @@ export default function JobDetailScreen() {
 
   if (!selectedJob) { navigation.goBack(); return null; }
 
-  const cfg       = STATUS_CFG[edited.status] ?? STATUS_CFG['Scheduled'];
+  const statusStyle = JOB_STATUS_STYLES[edited.status] ?? JOB_STATUS_STYLES['Scheduled'];
   const hasMap    = !!(edited.latitude && edited.longitude);
   const phone     = edited.customerPhone || edited.phone;
   const timeRange = formatTimeRange(edited.time, edited.duration);
@@ -157,7 +157,7 @@ export default function JobDetailScreen() {
         <TravelActionBar status={edited.status} onAction={handleTravelAction} />
 
         <Card>
-          <View style={[hd.topBar, { backgroundColor: cfg.color }]} />
+          <View style={[hd.topBar, { backgroundColor: statusStyle.color }]} />
           <View style={hd.body}>
             <View style={hd.titleRow}>
               <Text style={hd.title} numberOfLines={2}>{edited.title}</Text>
@@ -216,7 +216,7 @@ export default function JobDetailScreen() {
               initialRegion={{ latitude: edited.latitude!, longitude: edited.longitude!, latitudeDelta: 0.006, longitudeDelta: 0.006 }}
               scrollEnabled={false} zoomEnabled={false} pitchEnabled={false} rotateEnabled={false}
             >
-              <Marker coordinate={{ latitude: edited.latitude!, longitude: edited.longitude! }} pinColor={cfg.color} tracksViewChanges={false} />
+              <Marker coordinate={{ latitude: edited.latitude!, longitude: edited.longitude! }} pinColor={statusStyle.color} tracksViewChanges={false} />
             </MapView>
           ) : (
             <View style={lc.placeholder}>

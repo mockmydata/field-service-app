@@ -1,12 +1,13 @@
 {
-  "name": "my-app",
+  "name": "field-service-app",
   "version": "1.0.0",
   "main": "index.tsx",
   "scripts": {
-    "start": "expo start --dev-client",
+    "start": "expo start",
     "web": "expo start --web",
     "android": "expo run:android",
-    "ios": "expo run:ios"
+    "ios": "expo run:ios",
+    "start:dev-client": "expo start --dev-client"
   },
   "dependencies": {
     "@expo/metro-runtime": "~6.1.2",

@@ -7,14 +7,14 @@ import { Button, Dialog } from 'react-native-paper';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Calendar } from 'react-native-calendars';
 import { T } from '../Theme';
-import { STATUS_CFG, ALL_STATUSES } from '../JobConfig';
+import { JOB_STATUS_STYLES, ALL_STATUSES } from '../JobConfig';
 import { TimeInputPair } from './TimeInputPair';
 import { cardStyles } from './JobAtoms';
 import { Status } from '../../types/types';
 import {
   parseCombinedTime, parseHM, computeDuration, validHour, validMin,
 } from '../TimeHelpers';
-import { Technician } from '../../navigation/screens/Staff/Staffscreen';
+import { Technician } from '../../navigation/screens/Staff/Staff.constants';
 
 const card = cardStyles;
 
@@ -156,19 +156,19 @@ export function ChangeStatusDialog({ visible, currentStatus, onDismiss, onSave }
       <Dialog.Title style={dlgStyles.title}>Change Status</Dialog.Title>
       <Dialog.Content style={{ paddingHorizontal: 0, paddingBottom: 0 }}>
         {ALL_STATUSES.map((s, i) => {
-          const cfg = STATUS_CFG[s];
+          const statusStyle = JOB_STATUS_STYLES[s];
           const isSelected = selected === s;
           return (
             <React.Fragment key={s}>
               {i > 0 && <View style={card.divider} />}
-              <TouchableOpacity onPress={() => setSelected(s)} style={[csd.row, isSelected && { backgroundColor: cfg.color + '08' }]} activeOpacity={0.75}>
-                <View style={[csd.iconWrap, { backgroundColor: cfg.color + '18' }]}>
-                  <MaterialCommunityIcons name={cfg.icon as any} size={18} color={cfg.color} />
+              <TouchableOpacity onPress={() => setSelected(s)} style={[csd.row, isSelected && { backgroundColor: statusStyle.color + '08' }]} activeOpacity={0.75}>
+                <View style={[csd.iconWrap, { backgroundColor: statusStyle.color + '18' }]}>
+                  <MaterialCommunityIcons name={statusStyle.icon as any} size={18} color={statusStyle.color} />
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Text style={[csd.label, { color: cfg.color }]}>{cfg.label}</Text>
+                  <Text style={[csd.label, { color: statusStyle.color }]}>{statusStyle.label}</Text>
                 </View>
-                <MaterialCommunityIcons name={isSelected ? 'check-circle' : 'circle-outline'} size={22} color={isSelected ? cfg.color : T.border} />
+                <MaterialCommunityIcons name={isSelected ? 'check-circle' : 'circle-outline'} size={22} color={isSelected ? statusStyle.color : T.border} />
               </TouchableOpacity>
             </React.Fragment>
           );
